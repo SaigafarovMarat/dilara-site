@@ -253,3 +253,19 @@ p{margin:0 0 1em}
   .author-box{flex-direction:column}
   .cta-inline{flex-direction:column;align-items:flex-start}
 }
+
+/* photos in method / safety */
+.side-photo{margin:0}
+.side-photo img{width:100%;height:100%;object-fit:cover;border-radius:28px;box-shadow:var(--shadow)}
+.method-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,48px);align-items:stretch}
+.method-layout .trio{grid-template-columns:1fr}
+.method-layout .side-photo img{aspect-ratio:3/4;position:sticky;top:110px;height:auto}
+.safety-layout{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,4vw,48px);align-items:start;margin-bottom:28px}
+.safety-layout .safety-grid{grid-template-columns:1fr 1fr;margin:0}
+.safety-layout .side-photo img{aspect-ratio:4/5;height:auto}
+@media (max-width:900px){
+  .method-layout,.safety-layout{grid-template-columns:1fr}
+  .method-layout .side-photo,.safety-layout .side-photo{max-width:380px;margin-inline:auto}
+  .method-layout .side-photo img{position:static}
+  .safety-layout .safety-grid{grid-template-columns:1fr}
+}

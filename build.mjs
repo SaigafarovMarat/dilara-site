@@ -12,6 +12,9 @@ const read = (p) => fs.readFile(path.join(ROOT, p), 'utf8');
 
 const cfg = JSON.parse(await read('site.config.json'));
 const faq = JSON.parse(await read('src/data/faq.json'));
+// Отзывы: показываем блок только если в src/data/reviews.json есть настоящие отзывы с согласием авторов
+const reviews = JSON.parse(await read('src/data/reviews.json')).filter(r => r.text && r.name);
+const reviewsHtml = reviews.length ? `<section class="section section-soft" id="reviews"><div class="wrap"><div class="section-head reveal"><p class="eyebrow">Отзывы</p><h2>Что говорят <em>клиентки</em></h2></div><div class="trio">${reviews.map(r=>`<figure class="card reveal"><blockquote><p>${esc(r.text)}</p></blockquote><figcaption><strong>${esc(r.name)}</strong>${r.meta?' · '+esc(r.meta):''}</figcaption></figure>`).join('')}</div></div></section>` : '';
 
 const envUrl =
   process.env.SITE_URL ||
@@ -187,7 +190,7 @@ const homeJson = [
   },
 ];
 
-const homeTpl = await render(await read('src/pages/home.html'), { ...baseVars, faq: faqHtml, blogTeaser });
+const homeTpl = await render(await read('src/pages/home.html'), { ...baseVars, faq: faqHtml, blogTeaser, reviews: reviewsHtml });
 await page({
   outPath: 'index.html',
   title: 'Консультация коуча по отношениям — Дилара Сайгафарова, Казань и онлайн',
