@@ -12,9 +12,6 @@ const read = (p) => fs.readFile(path.join(ROOT, p), 'utf8');
 
 const cfg = JSON.parse(await read('site.config.json'));
 const faq = JSON.parse(await read('src/data/faq.json'));
-// Отзывы: показываем блок только если в src/data/reviews.json есть настоящие отзывы с согласием авторов
-const reviews = JSON.parse(await read('src/data/reviews.json')).filter(r => r.text && r.name);
-const reviewsHtml = reviews.length ? `<section class="section section-soft" id="reviews"><div class="wrap"><div class="section-head reveal"><p class="eyebrow">Отзывы</p><h2>Что говорят <em>клиентки</em></h2></div><div class="trio">${reviews.map(r=>`<figure class="card reveal"><blockquote><p>${esc(r.text)}</p></blockquote><figcaption><strong>${esc(r.name)}</strong>${r.meta?' · '+esc(r.meta):''}</figcaption></figure>`).join('')}</div></div></section>` : '';
 
 const envUrl =
   process.env.SITE_URL ||
@@ -25,6 +22,10 @@ const TODAY = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow' }).fo
 
 const esc = (s = '') =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// Отзывы: показываем блок только если в src/data/reviews.json есть настоящие отзывы с согласием авторов
+const reviews = JSON.parse(await read('src/data/reviews.json')).filter(r => r.text && r.name);
+const reviewsNote = 'Тестовые примеры: заменим на реальные отзывы с согласия клиенток.';
+const reviewsHtml = reviews.length ? `<section class="section" id="reviews"><div class="wrap"><div class="section-head reveal"><p class="eyebrow">Отзывы</p><h2>Что говорят <em>клиентки</em></h2>${reviewsNote?`<p class="lead">${reviewsNote}</p>`:''}</div><div class="trio">${reviews.map(r=>`<figure class="card reveal"><blockquote><p>${esc(r.text)}</p></blockquote><figcaption><strong>${esc(r.name)}</strong>${r.meta?' · '+esc(r.meta):''}</figcaption></figure>`).join('')}</div></div></section>` : '';
 
 const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 const ruDate = (iso) => {
