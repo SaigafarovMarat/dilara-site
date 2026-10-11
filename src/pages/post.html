@@ -1,0 +1,22 @@
+<article class="section page-top">
+  <div class="wrap article">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a> / <a href="/blog">Блог</a></nav>
+    <header class="article-head">
+      <p class="post-meta"><span class="tag">{{category}}</span><time datetime="{{date}}">{{dateRu}}</time><span>· {{minutes}} мин чтения</span></p>
+      <h1>{{title}}</h1>
+    </header>
+    <div class="prose">
+      {{body}}
+    </div>
+    <aside class="author-box">
+      <img src="/img/avatar.jpg" width="96" height="96" alt="Дилара Сайгафарова" loading="lazy">
+      <div>
+        <p class="author-name">Дилара Сайгафарова</p>
+        <p class="muted">Коуч отношений. Более 10 лет практики, сертификат Erickson University.</p>
+        <p><a class="btn" href="{{tgPersonal}}">Записаться на первую сессию · {{priceFirst}}</a></p>
+        <p class="small muted">Это не служба экстренной помощи. Если вам угрожает опасность: 112 или <a href="tel:{{hotlineTel}}">{{hotline}}</a>.</p>
+      </div>
+    </aside>
+    {{related}}
+  </div>
+</article>

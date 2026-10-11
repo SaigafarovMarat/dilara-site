@@ -1,0 +1,13 @@
+{
+  "name": "dilara-site",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "PREVIEW_ALL=1 node build.mjs"
+  },
+  "dependencies": {
+    "marked": "^14.1.2"
+  },
+  "private": true,
+  "type": "module"
+}

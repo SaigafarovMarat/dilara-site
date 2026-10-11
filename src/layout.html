@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ru">
+<head>
+{{head}}
+</head>
+<body class="{{bodyClass}}">
+<a class="skip" href="#main">К содержимому</a>
+<div class="exit-bar" role="region" aria-label="Быстрый выход">
+  <span class="exit-text">Нужно быстро уйти со страницы? Нажмите кнопку справа или дважды Esc.</span>
+  <button type="button" class="exit-btn" id="quick-exit">Срочно закрыть страницу <span aria-hidden="true">✕</span></button>
+</div>
+{{> header}}
+<main id="main">
+{{content}}
+</main>
+{{> footer}}
+<script src="/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Каждое утро (06:00 по Москве) просит Vercel пересобрать сайт.
+# Статьи, у которых дата наступила, появляются на сайте сами.
+name: Ежедневная публикация статей
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # 03:00 UTC = 06:00 МСК
+  workflow_dispatch: {}    # можно запустить вручную кнопкой
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Запустить пересборку на Vercel
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "Нет секрета VERCEL_DEPLOY_HOOK"; exit 1; fi
+          curl -fsS -X POST "$HOOK"
