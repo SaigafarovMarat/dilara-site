@@ -168,6 +168,20 @@ const blogTeaser = latest.length
 const homeJson = [
   {
     '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': abs('/#dilara'),
+    name: cfg.name,
+    jobTitle: 'Коуч отношений',
+    description: 'Коуч отношений из Казани, сертификат Erickson University, более 10 лет практики. Индивидуальные консультации для женщин в разрушающих отношениях.',
+    image: abs('/img/about.jpg'),
+    url: SITE_URL || undefined,
+    address: { '@type': 'PostalAddress', addressLocality: 'Казань', addressCountry: 'RU' },
+    hasCredential: { '@type': 'EducationalOccupationalCredential', name: 'Сертификат Erickson University' },
+    knowsAbout: ['коучинг отношений', 'эриксоновский коучинг', 'эмоциональный абьюз', 'границы в отношениях', 'восстановление самооценки'],
+    sameAs: [cfg.telegramGroup, cfg.telegramPersonal].filter(Boolean),
+  },
+  {
+    '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: `${cfg.name} — коуч отношений`,
     description: cfg.defaultDescription,
@@ -175,6 +189,7 @@ const homeJson = [
     image: abs('/img/og.jpg'),
     url: SITE_URL || undefined,
     priceRange: '2990–4990 RUB',
+    provider: { '@id': abs('/#dilara') },
     makesOffer: [
       { '@type': 'Offer', name: 'Первая индивидуальная сессия, 60 минут', price: '2990', priceCurrency: 'RUB' },
       { '@type': 'Offer', name: 'Индивидуальная сессия, 60 минут', price: '4990', priceCurrency: 'RUB' },
@@ -269,9 +284,15 @@ await page({
 });
 
 // robots, sitemap, rss
+const AI_BOTS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'ClaudeBot', 'Claude-SearchBot', 'Google-Extended', 'Applebot-Extended', 'YandexAdditional'];
 await fs.writeFile(
   path.join(DIST, 'robots.txt'),
-  `User-agent: *\nAllow: /\n${SITE_URL ? `Sitemap: ${SITE_URL}/sitemap.xml\n` : ''}`
+  `User-agent: *\nAllow: /\n\n${AI_BOTS.map((x) => `User-agent: ${x}\nAllow: /\n`).join('\n')}\n${SITE_URL ? `Sitemap: ${SITE_URL}/sitemap.xml\n` : ''}`
+);
+// llms.txt — краткая карта сайта для ИИ
+await fs.writeFile(
+  path.join(DIST, 'llms.txt'),
+  `# ${cfg.name} — коуч отношений\n\n> ${cfg.defaultDescription}\n\nФормат: индивидуальные консультации 60 минут, Zoom или очно в Казани. Первая сессия ${cfg.priceFirst}, следующие ${cfg.priceNext}. Не заменяет психотерапию и экстренную помощь (112, ${cfg.hotline}).\n\n## Страницы\n\n- [Главная: консультации, метод, безопасность, вопросы](${SITE_URL}/)\n- [Блог](${SITE_URL}/blog)\n\n## Статьи\n\n${posts.map((p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}): ${p.description}`).join('\n')}\n`
 );
 if (SITE_URL) {
   const urls = [
