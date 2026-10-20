@@ -178,7 +178,7 @@ const homeJson = [
     address: { '@type': 'PostalAddress', addressLocality: 'Казань', addressCountry: 'RU' },
     hasCredential: { '@type': 'EducationalOccupationalCredential', name: 'Сертификат Erickson University' },
     knowsAbout: ['коучинг отношений', 'эриксоновский коучинг', 'эмоциональный абьюз', 'границы в отношениях', 'восстановление самооценки'],
-    sameAs: [cfg.telegramGroup, cfg.telegramPersonal].filter(Boolean),
+    sameAs: ['https://dilaralove.ru', cfg.telegramGroup, cfg.telegramPersonal].filter(Boolean),
   },
   {
     '@context': 'https://schema.org',
