@@ -278,3 +278,5 @@ p{margin:0 0 1em}
 #reviews figcaption{font-size:.9rem;color:#6b5f58;border-top:1px solid var(--line);padding-top:.9rem}
 #reviews figcaption strong{color:#2b2321}
 @media (max-width:900px){#reviews .trio{grid-template-columns:1fr}}
+
+#reviews .trio{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));max-width:900px;margin-inline:auto}
